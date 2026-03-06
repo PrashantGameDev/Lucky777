@@ -4,13 +4,13 @@ import type { SymbolDef } from '../types';
 import type { Reel } from './Reel';
 
 export class WinAnimator {
-  private active    = false;
-  private time      = 0;
+  private active = false;
+  private time = 0;
   private winSprites: Array<PIXI.Sprite & { _flash?: PIXI.Graphics }> = [];
 
   private readonly glowLayer: PIXI.Container;
-  private glow:     PIXI.Graphics | null = null;
-  private glowCol   = 0xffd700;
+  private glow: PIXI.Graphics | null = null;
+  private glowCol = 0xffd700;
 
   constructor(stage: PIXI.Container) {
     this.glowLayer = new PIXI.Container();
@@ -20,13 +20,13 @@ export class WinAnimator {
   start(winSym: SymbolDef, reels: Reel[]): void {
     this.clear(reels);
     this.active = true;
-    this.time   = 0;
+    this.time = 0;
     this.glowCol = parseInt(winSym.fill[0].replace('#', ''), 16);
 
     // Collect payline sprite from each reel; dim others
     for (const reel of reels) {
       const sprites = reel.getSprites();
-      const best    = sprites.reduce((b, sp) =>
+      const best = sprites.reduce((b, sp) =>
         Math.abs(sp._wy - PAYLINE_Y) < Math.abs(b._wy - PAYLINE_Y) ? sp : b,
       );
       this.winSprites.push(best);
@@ -51,9 +51,9 @@ export class WinAnimator {
   }
 
   clear(reels: Reel[]): void {
-    this.active     = false;
+    this.active = false;
     this.winSprites = [];
-    this.glow       = null;
+    this.glow = null;
     this.glowLayer.removeChildren();
     reels.forEach(r => r.resetSprites());
   }
@@ -92,14 +92,14 @@ export class WinAnimator {
       g.beginFill(cols[Math.floor(Math.random() * cols.length)], 0.9);
       g.drawRect(-4, -4, 8, 8);
       g.endFill();
-      g.x  = 80 + Math.random() * (W - 160);
-      g.y  = 90 + Math.random() * 170;
+      g.x = 80 + Math.random() * (W - 160);
+      g.y = 90 + Math.random() * 170;
       const vx = (Math.random() - 0.5) * 4;
       const vy = -6 + Math.random() * 4;
-      let   vy_ = vy;
+      let vy_ = vy;
       app.stage.addChild(g);
 
-      const t0   = Date.now();
+      const t0 = Date.now();
       const tick = (): void => {
         const age = (Date.now() - t0) / 1000;
         if (age > 1.4) {
@@ -107,10 +107,10 @@ export class WinAnimator {
           app.ticker.remove(tick);
           return;
         }
-        g.x       += vx;
-        g.y       += vy_;
-        vy_       += 0.2;
-        g.alpha    = 1 - age / 1.4;
+        g.x += vx;
+        g.y += vy_;
+        vy_ += 0.2;
+        g.alpha = 1 - age / 1.4;
         g.rotation += 0.12;
       };
       app.ticker.add(tick);

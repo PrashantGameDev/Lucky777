@@ -10,13 +10,13 @@ export class Reel {
   readonly rx: number;
 
   // Spin state
-  spinning    = false;
-  stopping    = false;
-  snapping    = false;
-  speed       = 0;
-  stoppedSid  = -1;
+  spinning = false;
+  stopping = false;
+  snapping = false;
+  speed = 0;
+  stoppedSid = -1;
   snapTarget: ReelSprite | null = null;
-  forcedSid:  number | null = null;
+  forcedSid: number | null = null;
 
   private readonly strip: PIXI.Container;
   private readonly sprites: ReelSprite[] = [];
@@ -36,17 +36,17 @@ export class Reel {
 
   /** Randomise all sprites and reset state for a new spin. */
   startSpin(speed: number, forcedSid: number | null): void {
-    this.spinning   = true;
-    this.stopping   = false;
-    this.snapping   = false;
+    this.spinning = true;
+    this.stopping = false;
+    this.snapping = false;
     this.stoppedSid = -1;
-    this.speed      = speed;
-    this.forcedSid  = forcedSid;
+    this.speed = speed;
+    this.forcedSid = forcedSid;
 
     for (const sp of this.sprites) {
       const sid = this.randomSid();
       sp.texture = this.factory.getTexture(sid);
-      sp._sid    = sid;
+      sp._sid = sid;
     }
   }
 
@@ -63,36 +63,36 @@ export class Reel {
       this.speed *= 0.90;
 
       if (this.speed < 3) {
-        this.snapping   = true;
+        this.snapping = true;
         this.snapTarget = this.nearestToPayline();
 
         // Apply forced symbol to the landing sprite
         if (this.forcedSid !== null) {
           this.snapTarget.texture = this.factory.getTexture(this.forcedSid);
-          this.snapTarget._sid    = this.forcedSid;
-          this.forcedSid          = null;
+          this.snapTarget._sid = this.forcedSid;
+          this.forcedSid = null;
         }
       }
     }
 
     if (this.snapping && this.snapTarget) {
       const remaining = PAYLINE_Y - this.snapTarget._wy;
-      const step      = remaining * 0.25;
+      const step = remaining * 0.25;
 
       for (const sp of this.sprites) {
         sp._wy += step;
-        sp.y    = sp._wy;
+        sp.y = sp._wy;
       }
 
       if (Math.abs(remaining) < 0.5) {
         const fix = PAYLINE_Y - this.snapTarget._wy;
         for (const sp of this.sprites) {
           sp._wy += fix;
-          sp.y    = sp._wy;
+          sp.y = sp._wy;
         }
-        this.speed      = 0;
-        this.spinning   = false;
-        this.snapping   = false;
+        this.speed = 0;
+        this.spinning = false;
+        this.snapping = false;
         this.stoppedSid = this.snapTarget._sid;
         return true; // just stopped
       }
@@ -107,9 +107,9 @@ export class Reel {
       if (sp._wy > REELS_Y + REEL_H + CELL / 2) {
         const minWy = Math.min(...this.sprites.filter(s => s !== sp).map(s => s._wy));
         sp._wy = minWy - CELL;
-        const sid  = this.randomSid();
+        const sid = this.randomSid();
         sp.texture = this.factory.getTexture(sid);
-        sp._sid    = sid;
+        sp._sid = sid;
       }
 
       sp.y = sp._wy;
@@ -162,11 +162,11 @@ export class Reel {
     const visibleSlots = Math.ceil(REEL_H / CELL) + 2;
     for (let s = 0; s < visibleSlots; s++) {
       const sid = this.randomSid();
-      const sp  = new PIXI.Sprite(this.factory.getTexture(sid)) as ReelSprite;
+      const sp = new PIXI.Sprite(this.factory.getTexture(sid)) as ReelSprite;
       sp.anchor.set(0.5, 0.5);
-      sp.x   = rx + REEL_W / 2;
+      sp.x = rx + REEL_W / 2;
       sp._wy = REELS_Y - CELL + s * CELL;
-      sp.y   = sp._wy;
+      sp.y = sp._wy;
       sp._sid = sid;
       this.strip.addChild(sp);
       this.sprites.push(sp);

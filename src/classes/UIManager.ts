@@ -21,23 +21,23 @@ const VS: Partial<PIXI.ITextStyle> = {
 
 export class UIManager {
   // ── Readable state ──────────────────────────
-  credits   = STARTING_CREDITS;
-  betIdx    = 1;
+  credits = STARTING_CREDITS;
+  betIdx = 1;
   get bet(): number { return BET_STEPS[this.betIdx]; }
 
   // ── Dynamic text nodes ──────────────────────
-  private creditText!:  PIXI.Text;
-  private betText!:     PIXI.Text;
-  private winText!:     PIXI.Text;
+  private creditText!: PIXI.Text;
+  private betText!: PIXI.Text;
+  private winText!: PIXI.Text;
   private lineWinLabel!: PIXI.Text;
-  private winCont!:     PIXI.Container;
-  private winFlash      = 0;
+  private winCont!: PIXI.Container;
+  private winFlash = 0;
 
   // ── Dust particles ──────────────────────────
   private dust: Array<PIXI.Graphics & { _vx: number; _vy: number }> = [];
 
   // ── Title beat ──────────────────────────────
-  private titleBeat  = 0;
+  private titleBeat = 0;
   private titleGfx!: PIXI.Text;
 
   // ── Payline ─────────────────────────────────
@@ -45,8 +45,8 @@ export class UIManager {
 
   // ── Auto-spin state ─────────────────────────
   autoSpinning = false;
-  private autoGfx!:  PIXI.Graphics;
-  private autoLbl!:  PIXI.Text;
+  private autoGfx!: PIXI.Graphics;
+  private autoLbl!: PIXI.Text;
   private autoCont!: PIXI.Container;
 
   constructor(
@@ -64,9 +64,9 @@ export class UIManager {
     for (const p of this.dust) {
       p.x += p._vx * delta;
       p.y += p._vy * delta;
-      if (p.y < -5)         p.y = CANVAS_H + 5;
-      if (p.x < 0)          p.x = CANVAS_W;
-      if (p.x > CANVAS_W)   p.x = 0;
+      if (p.y < -5) p.y = CANVAS_H + 5;
+      if (p.x < 0) p.x = CANVAS_W;
+      if (p.x > CANVAS_W) p.x = 0;
     }
 
     // Title breathe
@@ -103,9 +103,9 @@ export class UIManager {
 
   // ── Win display ──────────────────────────────
   showWin(label: string): void {
-    this.winText.text    = label;
+    this.winText.text = label;
     this.winCont.visible = true;
-    this.winFlash        = 0;
+    this.winFlash = 0;
     this.lineWinLabel.visible = false;
   }
 
@@ -118,7 +118,7 @@ export class UIManager {
   }
 
   hideForSpin(): void {
-    this.winCont.visible      = false;
+    this.winCont.visible = false;
     this.lineWinLabel.visible = false;
   }
 
@@ -181,8 +181,8 @@ export class UIManager {
       g.beginFill(0xffd700, 0.08 + Math.random() * 0.14);
       g.drawCircle(0, 0, 1 + Math.random() * 1.5);
       g.endFill();
-      g.x   = Math.random() * CANVAS_W;
-      g.y   = Math.random() * CANVAS_H;
+      g.x = Math.random() * CANVAS_W;
+      g.y = Math.random() * CANVAS_H;
       g._vx = (Math.random() - 0.5) * 0.3;
       g._vy = -(0.35 + Math.random() * 0.3);
       layer.addChild(g);
@@ -305,8 +305,8 @@ export class UIManager {
     this.betText = addTxt(`${this.bet}`, bx + PANEL_W / 2, PANEL_Y + 24, VS);
 
     // Bet arrows
-    this.makeBetArrow('−', bx + 14,           PANEL_Y + PANEL_H / 2 + 2, () => this.emitter.emit('betChanged', -1 as unknown as number));
-    this.makeBetArrow('+', bx + PANEL_W - 14,  PANEL_Y + PANEL_H / 2 + 2, () => this.emitter.emit('betChanged',  1 as unknown as number));
+    this.makeBetArrow('−', bx + 14, PANEL_Y + PANEL_H / 2 + 2, () => this.emitter.emit('betChanged', -1 as unknown as number));
+    this.makeBetArrow('+', bx + PANEL_W - 14, PANEL_Y + PANEL_H / 2 + 2, () => this.emitter.emit('betChanged', 1 as unknown as number));
   }
 
   private makeBetArrow(label: string, x: number, y: number, onClick: () => void): void {
@@ -327,7 +327,7 @@ export class UIManager {
     c.addChild(bg, t);
     this.stage.addChild(c);
     c.on('pointerdown', () => { bg.tint = 0xffaa00; onClick(); });
-    c.on('pointerup',   () => { bg.tint = 0xffffff; });
+    c.on('pointerup', () => { bg.tint = 0xffffff; });
     c.on('pointerupoutside', () => { bg.tint = 0xffffff; });
   }
 
@@ -363,8 +363,8 @@ export class UIManager {
     spinLbl.anchor.set(0.5); spinLbl.y = 14;
     spinCont.addChild(spinLbl);
 
-    spinCont.on('pointerdown', () => { btnDown = true;  drawSpin(); spinLbl.y = 18; this.emitter.emit('spinStart'); });
-    spinCont.on('pointerup',   () => { btnDown = false; drawSpin(); spinLbl.y = 14; });
+    spinCont.on('pointerdown', () => { btnDown = true; drawSpin(); spinLbl.y = 18; this.emitter.emit('spinStart'); });
+    spinCont.on('pointerup', () => { btnDown = false; drawSpin(); spinLbl.y = 14; });
     spinCont.on('pointerupoutside', () => { btnDown = false; drawSpin(); spinLbl.y = 14; });
 
     // AUTO button
@@ -424,10 +424,10 @@ export class UIManager {
 
     const entries = [
       { label: '7×3', val: '×100', col: '#FF4400' },
-      { label: '★×3', val: '×50',  col: '#FFD700' },
-      { label: '♦×3', val: '×30',  col: '#00CFFF' },
-      { label: '♣×3', val: '×20',  col: '#44FF44' },
-      { label: '♥×3', val: '×10',  col: '#FF55BB' },
+      { label: '★×3', val: '×50', col: '#FFD700' },
+      { label: '♦×3', val: '×30', col: '#00CFFF' },
+      { label: '♣×3', val: '×20', col: '#44FF44' },
+      { label: '♥×3', val: '×10', col: '#FF55BB' },
     ];
     const colW = payTW / entries.length;
     entries.forEach((e, i) => {

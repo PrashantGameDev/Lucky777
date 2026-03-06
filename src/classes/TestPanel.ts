@@ -1,5 +1,6 @@
+import { SYMBOLS } from '../constants';
 import type { SpinController } from './SpinController';
-import type { UIManager }      from './UIManager';
+import type { UIManager } from './UIManager';
 
 interface SymEntry { id: number; char: string; }
 
@@ -17,7 +18,7 @@ export class TestPanel {
 
   constructor(
     private readonly ctrl: SpinController,
-    private readonly ui:   UIManager,
+    private readonly ui: UIManager,
   ) {
     const logEl = document.getElementById('test-log');
     if (!logEl) throw new Error('Missing #test-log element');
@@ -44,22 +45,22 @@ export class TestPanel {
     const container = document.getElementById('sym-btns');
     if (!container) return;
 
-    SYMS.forEach(s => {
+    SYMBOLS.forEach(s => {
       const btn = document.createElement('button');
-      btn.className   = 'sym-btn';
+      btn.className = 'sym-btn';
       btn.textContent = s.char;
-      btn.title       = `Force ${s.char}×3`;
+      btn.title = `Force ${s.char}×3`;
 
       btn.addEventListener('click', () => {
         this.clearSymHighlights();
         if (this.selectedSym === s.id) {
-          this.selectedSym          = null;
-          this.ctrl.forcedResult    = null;
+          this.selectedSym = null;
+          this.ctrl.forcedResult = null;
           this.setLog('cleared');
         } else {
           btn.classList.add('sel');
-          this.selectedSym          = s.id;
-          this.ctrl.forcedResult    = s.id;
+          this.selectedSym = s.id;
+          this.ctrl.forcedResult = s.id;
           this.setLog(`Next spin → ${s.char}×3`);
         }
       });
@@ -70,10 +71,10 @@ export class TestPanel {
 
   private bindPresets(): void {
     const presets: Array<[string, number, string]> = [
-      ['btn-win7',      0, '7×3 win'],
-      ['btn-win-star',  1, '★×3 win'],
-      ['btn-win-dia',   2, '♦×3 win'],
-      ['btn-win-club',  3, '♣×3 win'],
+      ['btn-win7', 0, '7×3 win'],
+      ['btn-win-star', 1, '★×3 win'],
+      ['btn-win-dia', 2, '♦×3 win'],
+      ['btn-win-club', 3, '♣×3 win'],
       ['btn-win-heart', 4, '♥×3 win'],
     ];
 
@@ -131,14 +132,14 @@ export class TestPanel {
 
   private bindCollapse(): void {
     let collapsed = false;
-    const body   = document.getElementById('tp-body');
+    const body = document.getElementById('tp-body');
     const toggle = document.getElementById('tp-toggle');
     if (!body || !toggle) return;
 
     toggle.addEventListener('click', () => {
-      collapsed        = !collapsed;
-      body.style.display   = collapsed ? 'none' : 'block';
-      toggle.textContent   = collapsed ? '▼' : '▲';
+      collapsed = !collapsed;
+      body.style.display = collapsed ? 'none' : 'block';
+      toggle.textContent = collapsed ? '▼' : '▲';
     });
   }
 

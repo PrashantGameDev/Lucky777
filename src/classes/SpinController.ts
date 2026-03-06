@@ -4,25 +4,25 @@ import {
   REEL_STOP_DELAYS, REEL_STOP_JITTER,
   ANTICIPATION_SPEED_CAP, ANTICIPATION_STOP_DELAY, ANTICIPATION_STOP_JITTER,
 } from '../constants';
-import type { Reel }                  from './Reel';
-import type { UIManager }             from './UIManager';
-import type { WinAnimator }           from './WinAnimator';
-import type { AnticipationAnimator }  from './AnticipationAnimator';
-import type { EventEmitter }          from './EventEmitter';
+import type { Reel } from './Reel';
+import type { UIManager } from './UIManager';
+import type { WinAnimator } from './WinAnimator';
+import type { AnticipationAnimator } from './AnticipationAnimator';
+import type { EventEmitter } from './EventEmitter';
 import type { ForcedResult, SpinResult } from '../types';
 
 export class SpinController {
-  private spinning       = false;
+  private spinning = false;
   private reelStopTimes: number[] = [];
   forcedResult: ForcedResult = null;
 
   constructor(
-    private readonly app:           PIXI.Application,
-    private readonly reels:         Reel[],
-    private readonly ui:            UIManager,
-    private readonly winAnimator:   WinAnimator,
-    private readonly anticipation:  AnticipationAnimator,
-    private readonly emitter:       EventEmitter,
+    private readonly app: PIXI.Application,
+    private readonly reels: Reel[],
+    private readonly ui: UIManager,
+    private readonly winAnimator: WinAnimator,
+    private readonly anticipation: AnticipationAnimator,
+    private readonly emitter: EventEmitter,
   ) {
     this.emitter.on('spinStart', (payload: unknown) => {
       if (payload === 'auto') {
@@ -54,11 +54,11 @@ export class SpinController {
     this.winAnimator.clear(this.reels);
     this.anticipation.stop();
 
-    const now           = Date.now();
-    this.reelStopTimes  = REEL_STOP_DELAYS.map(d => now + d + Math.random() * REEL_STOP_JITTER);
+    const now = Date.now();
+    this.reelStopTimes = REEL_STOP_DELAYS.map(d => now + d + Math.random() * REEL_STOP_JITTER);
 
-    const forcedStops   = this.resolveForcedStops();
-    this.forcedResult   = null;
+    const forcedStops = this.resolveForcedStops();
+    this.forcedResult = null;
 
     this.reels.forEach((reel, i) => {
       reel.startSpin(22 + Math.random() * 4, forcedStops?.[i] ?? null);
@@ -69,8 +69,8 @@ export class SpinController {
   update(delta: number): void {
     if (!this.spinning) return;
 
-    const now          = Date.now();
-    let   stoppedCount = 0;
+    const now = Date.now();
+    let stoppedCount = 0;
 
     for (let i = 0; i < this.reels.length; i++) {
       const reel = this.reels[i];
@@ -145,7 +145,7 @@ export class SpinController {
     const ids = this.reels.map(r => r.stoppedSid) as [number, number, number];
     const valid = ids.every(id => id >= 0 && id < SYMBOLS.length);
     const isWin = valid && ids[0] === ids[1] && ids[1] === ids[2];
-    const sym   = isWin ? SYMBOLS[ids[0]] : null;
+    const sym = isWin ? SYMBOLS[ids[0]] : null;
     return {
       ids,
       isWin,

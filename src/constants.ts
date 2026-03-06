@@ -51,9 +51,6 @@ export const SYMBOLS: ReadonlyArray<SymbolDef> = [
   { id: 2, char: '♦',  fill: ['#00CFFF', '#0044FF'], stroke: '#FFFFFF', payout: 30  },
   { id: 3, char: '♣',  fill: ['#44FF44', '#008800'], stroke: '#FFFFFF', payout: 20  },
   { id: 4, char: '♥',  fill: ['#FF55BB', '#CC0066'], stroke: '#FFFFFF', payout: 10  },
-  { id: 5, char: '777',  fill: ['#f1b14f', '#f1a32e'], stroke: '#FFFFFF', payout: 500  },
-  { id: 6, char: 'BAR',  fill: ['#e73939', '#f01010'], stroke: '#FFFFFF', payout: 1000  },
-  { id: 7, char: 'BELL', fill: ['#28c079', '#13975a'], stroke: '#FFFFFF', payout: 250  },
 ];
 
 // Weighted pool — 7 is rare, hearts common

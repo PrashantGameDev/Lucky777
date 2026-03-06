@@ -3,8 +3,8 @@ import { REEL_W, REEL_H, REELS_Y } from '../constants';
 import type { Reel } from './Reel';
 
 export class AnticipationAnimator {
-  private active      = false;
-  private time        = 0;
+  private active = false;
+  private time = 0;
   private readonly gfx: PIXI.Graphics;
 
   constructor(stage: PIXI.Container) {
@@ -14,7 +14,7 @@ export class AnticipationAnimator {
 
   start(): void {
     this.active = true;
-    this.time   = 0;
+    this.time = 0;
   }
 
   stop(): void {
