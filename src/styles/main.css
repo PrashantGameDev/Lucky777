@@ -1,0 +1,111 @@
+/* ── Reset ─────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: radial-gradient(ellipse at center, #1a0800 0%, #070707 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+canvas { display: block; }
+
+/* ── Test Panel ─────────────────────────────── */
+#testpanel {
+  position: fixed;
+  top: 16px; right: 16px;
+  background: #0e0a04;
+  border: 1.5px solid #6a5010;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: Georgia, serif;
+  font-size: 12px;
+  color: #b8860b;
+  z-index: 999;
+  min-width: 174px;
+  box-shadow: 0 4px 24px #000a;
+  user-select: none;
+}
+
+#testpanel h3 {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #ffd700;
+  text-align: center;
+  border-bottom: 1px solid #3a2800;
+  padding-bottom: 7px;
+}
+
+#testpanel .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  gap: 6px;
+}
+
+#testpanel label { font-size: 11px; color: #8a6820; flex-shrink: 0; }
+
+#testpanel button {
+  background: #1e1204;
+  border: 1px solid #6a5010;
+  border-radius: 5px;
+  color: #ffd700;
+  font-family: Georgia, serif;
+  font-size: 11px;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+#testpanel button:hover  { background: #2e1e08; border-color: #ffd700; }
+#testpanel button.active { background: #3a2200; border-color: #ffd700; color: #fff; }
+
+#testpanel .sym-row { display: flex; gap: 4px; flex-wrap: wrap; }
+
+#testpanel .sym-btn {
+  background: #1e1204;
+  border: 1px solid #4a3000;
+  border-radius: 4px;
+  color: #ccc;
+  font-size: 14px;
+  width: 28px; height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.1s;
+}
+
+#testpanel .sym-btn:hover { border-color: #ffd700; background: #2a1a04; }
+#testpanel .sym-btn.sel   { border-color: #ffd700; background: #3a2200; box-shadow: 0 0 6px #ffd70077; }
+
+#testpanel .divider {
+  border: none;
+  border-top: 1px solid #2a1a04;
+  margin: 8px 0;
+}
+
+#testpanel #test-log {
+  font-size: 10px;
+  color: #5a4010;
+  margin-top: 6px;
+  min-height: 16px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+#testpanel .toggle-btn {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: none;
+  border: none;
+  color: #6a5010;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+}

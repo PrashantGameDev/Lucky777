@@ -1,0 +1,17 @@
+{
+  "name": "lucky777",
+  "version": "1.0.0",
+  "description": "Lucky 777 Slot Machine — PixiJS + TypeScript",
+  "scripts": {
+    "dev":   "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "pixi.js": "^7.3.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4"
+  }
+}

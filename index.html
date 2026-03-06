@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucky 777</title>
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+
+  <!-- Test Panel -->
+  <div id="testpanel">
+    <button class="toggle-btn" id="tp-toggle" title="Collapse">▲</button>
+    <h3>🧪 TEST PANEL</h3>
+    <div id="tp-body">
+      <div class="row"><label>Force symbol:</label></div>
+      <div class="sym-row" id="sym-btns"></div>
+      <hr class="divider" />
+      <div class="row">
+        <button id="btn-win7">Win: 7×3</button>
+        <button id="btn-win-star">Win: ★×3</button>
+      </div>
+      <div class="row">
+        <button id="btn-win-dia">Win: ♦×3</button>
+        <button id="btn-win-club">Win: ♣×3</button>
+      </div>
+      <div class="row">
+        <button id="btn-win-heart">Win: ♥×3</button>
+        <button id="btn-no-win">Force No-Win</button>
+      </div>
+      <hr class="divider" />
+      <div class="row"><label>Anticipation:</label></div>
+      <div class="row">
+        <button id="btn-ant-win">Anticipate → WIN</button>
+      </div>
+      <div class="row">
+        <button id="btn-ant-miss">Anticipate → MISS</button>
+      </div>
+      <hr class="divider" />
+      <div class="row">
+        <button id="btn-add-credits">+200 Credits</button>
+        <button id="btn-free-spin">Free Spin</button>
+      </div>
+      <div id="test-log">ready</div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
