@@ -50,3 +50,6 @@ Thumbs.db
 
 # VS Code
 .vscode/
+
+# Vite
+.vite/
